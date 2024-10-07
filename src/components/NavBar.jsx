@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const navigate = useNavigate();
   const isLoggedIn = true;
   const userObject = {
     id: 1,
@@ -10,6 +11,10 @@ const NavBar = () => {
     lastName: "Pardo",
     email: "myemail@email.com",
     password: "qwer234*^ASDF",
+  };
+  const handleLogOut = () => {
+    localStorage.removeItem("foodAppToken");
+    navigate("/");
   };
   return (
     <ul className="nav-bar">
@@ -46,7 +51,9 @@ const NavBar = () => {
                   <button className="menu-btn">Profile</button>
                 </li>
                 <li>
-                  <button className="menu-btn">Log Out</button>
+                  <button onClick={handleLogOut} className="menu-btn">
+                    Log Out
+                  </button>
                 </li>
               </ul>
             )}

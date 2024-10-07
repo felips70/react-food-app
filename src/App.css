@@ -154,3 +154,8 @@
   border: none;
   background-color: transparent;
 }
+
+.error-msg,
+.empty-field {
+  color: red;
+}
