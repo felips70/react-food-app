@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import useAuth from "../hooks/useAuth";
 import {
   validateField,
   validateFieldLength,
@@ -11,6 +12,7 @@ import {
 
 const LogIn = () => {
   const navigate = useNavigate();
+  const { logIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailEmptyError, setEmailEmptyError] = useState(false);
@@ -46,7 +48,7 @@ const LogIn = () => {
           } else {
             setUserOrPasswordIncorrectError(false);
             emptyFields(setEmail, setPassword);
-            localStorage.setItem("foodAppToken", foodAppUsers[indexOfEmail].id);
+            logIn(foodAppUsers[indexOfEmail].id);
             navigate("/food");
           }
         }

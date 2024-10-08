@@ -10,9 +10,11 @@ import {
   passwordRegex,
   getIndexOfEmailInLocalStorage,
 } from "../utility";
+import useAuth from "../hooks/useAuth";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const { logIn } = useAuth();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -75,7 +77,7 @@ const SignUp = () => {
         localStorage.setItem("foodAppUsers", JSON.stringify([newUser]));
         emptyFields(setFirstName, setLastName, setEmail, setPassword);
 
-        localStorage.setItem("foodAppToken", userId);
+        logIn(userId);
         navigate("/food");
       } else {
         const foodAppUsers = JSON.parse(localStorage.getItem("foodAppUsers"));
@@ -90,7 +92,7 @@ const SignUp = () => {
           );
 
           emptyFields(setFirstName, setLastName, setEmail, setPassword);
-          localStorage.setItem("foodAppToken", userId);
+          logIn(userId);
           navigate("/food");
         }
       }

@@ -46,9 +46,6 @@ export function emptyFields() {
 export const getIndexOfEmailInLocalStorage = (users, email) =>
   users.map((user) => user.email).indexOf(email);
 
-// export const isEmailInLocalStorage = (users, email) =>
-//   users.map((user) => user.email).includes(email);
-
 export const nameRegex = /^[a-z]+$/i;
 export const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 export const passwordRegex =

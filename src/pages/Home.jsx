@@ -1,9 +1,10 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 import NavigationButton from "../components/NavigationButton";
+import useAuth from "../hooks/useAuth";
 
 const Home = () => {
-  let isLoggedIn = false;
+  const { foodAppToken } = useAuth();
   return (
     <>
       <NavBar />
@@ -19,7 +20,7 @@ const Home = () => {
           comfort of their home
         </p>
         <div className="d-flex gap-2">
-          {isLoggedIn ? (
+          {foodAppToken ? (
             <>
               <NavigationButton to="/food" label="Go to Foods" />
               <NavigationButton to="/cart" label="Go to Cart" />

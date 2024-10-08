@@ -1,19 +1,15 @@
 import React, { useState } from "react";
+import useAuth from "../hooks/useAuth";
+import useUserInfo from "../hooks/useUserInfo";
 import { Link, useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const { foodAppToken, logOut } = useAuth();
+  const { userInfo } = useUserInfo();
   const navigate = useNavigate();
-  const isLoggedIn = true;
-  const userObject = {
-    id: 1,
-    firstName: "Felipe",
-    lastName: "Pardo",
-    email: "myemail@email.com",
-    password: "qwer234*^ASDF",
-  };
   const handleLogOut = () => {
-    localStorage.removeItem("foodAppToken");
+    logOut();
     navigate("/");
   };
   return (
@@ -30,7 +26,7 @@ const NavBar = () => {
       <li>
         <Link to="/about-us">About Us</Link>
       </li>
-      {isLoggedIn && (
+      {foodAppToken && (
         <>
           <li>
             <Link to="/food">Food</Link>
@@ -43,7 +39,7 @@ const NavBar = () => {
               onClick={() => setShowMenu((prev) => !prev)}
               className="profile-btn btn-effects"
             >
-              {userObject.firstName[0]}
+              {userInfo?.firstName[0].toUpperCase() || "F"}
             </button>
             {showMenu && (
               <ul className="menu-container">
