@@ -15,7 +15,7 @@ const ProductCard = ({
   const [showItemAddedMessage, setShowItemAddedMessage] = useState(false);
   const [showItemRemovedMessage, setShowItemRemovedMessage] = useState(false);
 
-  const isQuantityStillInitialZero = initialQuantity === 0 && quantity === 0;
+  const isQuantityEqualToInitialQuantity = initialQuantity === quantity;
 
   const handleUpdateCart = () => {
     if (goingFromOneToZero) {
@@ -72,7 +72,7 @@ const ProductCard = ({
         className={`btn btn-effects btn-effects-${
           goingFromOneToZero ? "danger" : "success"
         } mb-2`}
-        disabled={isQuantityStillInitialZero}
+        disabled={isQuantityEqualToInitialQuantity}
       >
         {goingFromOneToZero ? "Remove from Cart" : "Add to Cart"}
       </button>
