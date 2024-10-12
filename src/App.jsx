@@ -21,24 +21,21 @@ function App() {
   if (authLoading || userInfoLoading) {
     return <div>Loading...</div>;
   }
-
   return (
     <DishesContext.Provider value={dishes}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/sign-up" element={<SignUp />}></Route>
-          <Route path="/log-in" element={<LogIn />}></Route>
-          <Route path="/about-us" element={<AboutUs />}></Route>
-          <Route path="/contact" element={<Contact />}></Route>
-          {foodAppToken && (
-            <>
-              <Route path="/food" element={<Food />}></Route>
-              <Route path="/cart" element={<Cart />}></Route>
-            </>
-          )}
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/sign-up" element={<SignUp />}></Route>
+        <Route path="/log-in" element={<LogIn />}></Route>
+        <Route path="/about-us" element={<AboutUs />}></Route>
+        <Route path="/contact" element={<Contact />}></Route>
+        {foodAppToken && (
+          <>
+            <Route path="/food" element={<Food />}></Route>
+            <Route path="/cart" element={<Cart />}></Route>
+          </>
+        )}
+      </Routes>
     </DishesContext.Provider>
   );
 }

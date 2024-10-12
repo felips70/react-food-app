@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import useAuth from "../hooks/useAuth";
 import {
@@ -11,7 +10,6 @@ import {
 } from "../utility";
 
 const LogIn = () => {
-  const navigate = useNavigate();
   const { logIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,7 +47,6 @@ const LogIn = () => {
             setUserOrPasswordIncorrectError(false);
             emptyFields(setEmail, setPassword);
             logIn(foodAppUsers[indexOfEmail].id);
-            navigate("/food");
           }
         }
       }

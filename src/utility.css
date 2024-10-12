@@ -7,6 +7,10 @@ body {
   font-family: "Aileron", sans-serif;
 }
 
+.p-relative {
+  position: relative;
+}
+
 .d-block {
   display: block;
 }
@@ -33,6 +37,10 @@ body {
 
 .gap-5 {
   gap: 3rem;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 .justify-content-center {
@@ -93,8 +101,4 @@ body {
 
 .horizontal-center {
   margin: 0 auto;
-}
-
-.flex-wrap {
-  flex-wrap: wrap;
 }

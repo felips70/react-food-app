@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import useUserInfo from "../hooks/useUserInfo";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import useFoodAppCart from "../hooks/useFoodAppCart";
+import { getTotalProductQuantity } from "../utility";
 
 const NavBar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const { foodAppToken, logOut } = useAuth();
   const { userInfo } = useUserInfo();
-  const navigate = useNavigate();
-  const handleLogOut = () => {
-    logOut();
-    navigate("/");
-  };
+
   return (
     <ul className="nav-bar">
       <li>
@@ -39,7 +37,7 @@ const NavBar = () => {
               onClick={() => setShowMenu((prev) => !prev)}
               className="profile-btn btn-effects"
             >
-              {userInfo?.firstName[0].toUpperCase() || "F"}
+              {userInfo?.firstName[0].toUpperCase() || "?"}
             </button>
             {showMenu && (
               <ul className="menu-container">
@@ -47,7 +45,7 @@ const NavBar = () => {
                   <button className="menu-btn">Profile</button>
                 </li>
                 <li>
-                  <button onClick={handleLogOut} className="menu-btn">
+                  <button onClick={() => logOut()} className="menu-btn">
                     Log Out
                   </button>
                 </li>

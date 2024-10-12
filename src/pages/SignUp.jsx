@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import NavBar from "../components/NavBar";
 import {
@@ -13,7 +12,6 @@ import {
 import useAuth from "../hooks/useAuth";
 
 const SignUp = () => {
-  const navigate = useNavigate();
   const { logIn } = useAuth();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -78,7 +76,6 @@ const SignUp = () => {
         emptyFields(setFirstName, setLastName, setEmail, setPassword);
 
         logIn(userId);
-        navigate("/food");
       } else {
         const foodAppUsers = JSON.parse(localStorage.getItem("foodAppUsers"));
         if (getIndexOfEmailInLocalStorage(foodAppUsers, email) >= 0) {
@@ -93,7 +90,6 @@ const SignUp = () => {
 
           emptyFields(setFirstName, setLastName, setEmail, setPassword);
           logIn(userId);
-          navigate("/food");
         }
       }
     }
