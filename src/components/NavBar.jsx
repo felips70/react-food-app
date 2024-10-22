@@ -10,6 +10,11 @@ const NavBar = () => {
   const { foodAppToken, logOut } = useAuth();
   const { userInfo } = useUserInfo();
 
+  const handleLogOut = () => {
+    setShowMenu(false);
+    logOut();
+  };
+
   return (
     <ul className="nav-bar">
       <li>
@@ -45,7 +50,7 @@ const NavBar = () => {
                   <button className="menu-btn">Profile</button>
                 </li>
                 <li>
-                  <button onClick={() => logOut()} className="menu-btn">
+                  <button onClick={handleLogOut} className="menu-btn">
                     Log Out
                   </button>
                 </li>
