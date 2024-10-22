@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NavBar from "./components/NavBar.jsx";
 import DishesContext from "./contexts/Dishes.jsx";
 import useAuth from "./hooks/useAuth.jsx";
 import Home from "./pages/Home";
@@ -23,6 +24,7 @@ function App() {
   }
   return (
     <DishesContext.Provider value={dishes}>
+      <NavBar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import NavBar from "../components/NavBar";
 import useAuth from "../hooks/useAuth";
 import {
   validateField,
@@ -53,54 +52,51 @@ const LogIn = () => {
     }
   };
   return (
-    <>
-      <NavBar />
-      <div className="form-container">
-        <h2 className="text-center">Log In</h2>
-        <form action="">
-          <div className="field-container">
-            <label htmlFor="email">Email</label>
-            <input
-              onChange={(e) => handleChange(e, setEmail)}
-              className="input"
-              type="email"
-              name="email"
-              value={email}
-            />
-            {emailEmptyError && (
-              <span className="empty-field">*Please fill this field</span>
-            )}
-            {emailContentError && (
-              <span className="error-msg">Please enter a valid email</span>
-            )}
-          </div>
-          <div className="field-container">
-            <label htmlFor="password">Password</label>
-            <input
-              onChange={(e) => handleChange(e, setPassword)}
-              className="input"
-              type="password"
-              name="password"
-              value={password}
-            />
-            {pwEmptyError && (
-              <span className="empty-field">*Please fill this field</span>
-            )}
-          </div>
-          {userOrPasswordIncorrectError && (
-            <p className="error-msg text-center">
-              The email or password you entered is incorrect
-            </p>
+    <div className="form-container">
+      <h2 className="text-center">Log In</h2>
+      <form action="">
+        <div className="field-container">
+          <label htmlFor="email">Email</label>
+          <input
+            onChange={(e) => handleChange(e, setEmail)}
+            className="input"
+            type="email"
+            name="email"
+            value={email}
+          />
+          {emailEmptyError && (
+            <span className="empty-field">*Please fill this field</span>
           )}
-          <button
-            onClick={handleLogIn}
-            className="btn btn-effects horizontal-center d-block"
-          >
-            Log In
-          </button>
-        </form>
-      </div>
-    </>
+          {emailContentError && (
+            <span className="error-msg">Please enter a valid email</span>
+          )}
+        </div>
+        <div className="field-container">
+          <label htmlFor="password">Password</label>
+          <input
+            onChange={(e) => handleChange(e, setPassword)}
+            className="input"
+            type="password"
+            name="password"
+            value={password}
+          />
+          {pwEmptyError && (
+            <span className="empty-field">*Please fill this field</span>
+          )}
+        </div>
+        {userOrPasswordIncorrectError && (
+          <p className="error-msg text-center">
+            The email or password you entered is incorrect
+          </p>
+        )}
+        <button
+          onClick={handleLogIn}
+          className="btn btn-effects horizontal-center d-block"
+        >
+          Log In
+        </button>
+      </form>
+    </div>
   );
 };
 
