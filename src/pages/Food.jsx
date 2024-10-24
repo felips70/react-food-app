@@ -1,16 +1,21 @@
-import React, { useContext, useState } from "react";
-import DishesContext from "../contexts/Dishes";
+import React, { useState } from "react";
 import ProductCard from "../components/ProductCard";
 import useUserInfo from "../hooks/useUserInfo";
+import useDishes from "../hooks/useDishes";
 import useFoodAppCart from "../hooks/useFoodAppCart";
 
 const Food = () => {
-  const dishes = useContext(DishesContext);
   const [filterBy, setFilterBy] = useState(["food", "beverages"]);
   const { userInfo } = useUserInfo();
 
-  const { loading, foodAppCart, updateFoodAppCart, removeProductFromCart } =
-    useFoodAppCart(userInfo.id);
+  const { loading: dishesLoading, dishes } = useDishes();
+
+  const {
+    loading: cartLoading,
+    foodAppCart,
+    updateFoodAppCart,
+    removeProductFromCart,
+  } = useFoodAppCart(userInfo.id);
 
   const handleFilterClick = (filterOption) => {
     switch (filterOption) {
@@ -59,19 +64,19 @@ const Food = () => {
         </li>
       </ul>
       <div className="my-4 d-flex justify-content-center flex-wrap gap-5">
-        {loading ? (
+        {cartLoading || dishesLoading ? (
           <div>Loading...</div>
         ) : (
           dishes
             .filter((dish) => filterBy.includes(dish.category))
             .map(({ _id, img, name, price }) => (
               <ProductCard
-                key={_id.$oid}
-                productId={_id.$oid}
+                key={_id}
+                productId={_id}
                 img={img}
                 name={name}
                 price={price}
-                initialQuantity={foodAppCart?.[_id.$oid] || 0}
+                initialQuantity={foodAppCart?.[_id] || 0}
                 updateFoodAppCart={updateFoodAppCart}
                 removeProductFromCart={removeProductFromCart}
               />

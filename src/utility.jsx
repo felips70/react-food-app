@@ -51,8 +51,8 @@ export const getEnrichedCart = (dishes, userCart) => {
   const cartProductKeys = Object.keys(userCart);
 
   return dishes
-    .filter(({ _id }) => cartProductKeys.includes(_id.$oid))
-    .map((product) => ({ ...product, quantity: userCart[product._id.$oid] }));
+    .filter(({ _id }) => cartProductKeys.includes(_id))
+    .map((product) => ({ ...product, quantity: userCart[product._id] }));
 };
 
 export const displayDissapearingMessage = (setState, dissapearTime = 2500) => {

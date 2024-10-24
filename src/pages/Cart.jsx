@@ -1,21 +1,28 @@
 import React, { useContext, useMemo, useState } from "react";
-import DishesContext from "../contexts/Dishes";
 import CartProductCard from "../components/CartProductCard";
 import useUserInfo from "../hooks/useUserInfo";
 import useFoodAppCart from "../hooks/useFoodAppCart";
 import { getEnrichedCart, displayDissapearingMessage } from "../utility";
 import EmptyCart from "../components/EmptyCart";
+import useDishes from "../hooks/useDishes";
 
 const Cart = () => {
   const [showOrderMadeMessage, setShowOrderMadeMessage] = useState(false);
-  const dishes = useContext(DishesContext);
   const { userInfo } = useUserInfo();
 
-  const { loading, foodAppCart, removeProductFromCart, removeUserCart } =
-    useFoodAppCart(userInfo.id);
+  const { loading: dishesLoading, dishes } = useDishes();
+
+  const {
+    loading: cartLoading,
+    foodAppCart,
+    removeProductFromCart,
+    removeUserCart,
+  } = useFoodAppCart(userInfo.id);
 
   const enrichedUserCart = useMemo(() => {
-    return loading ? [] : getEnrichedCart(dishes, foodAppCart);
+    return cartLoading || dishesLoading
+      ? []
+      : getEnrichedCart(dishes, foodAppCart);
   }, [dishes, foodAppCart]);
 
   const handleMakeOrder = () => {
@@ -32,15 +39,15 @@ const Cart = () => {
       )}
       <h2 className="text-center my-4">Cart</h2>
       <div className="my-4 d-flex justify-content-center flex-wrap gap-5">
-        {loading ? (
+        {cartLoading || dishesLoading ? (
           <div>Loading...</div>
         ) : enrichedUserCart.length === 0 ? (
           <EmptyCart />
         ) : (
           enrichedUserCart.map(({ _id, img, name, price, quantity }) => (
             <CartProductCard
-              key={_id.$oid}
-              productId={_id.$oid}
+              key={_id}
+              productId={_id}
               img={img}
               name={name}
               price={price}

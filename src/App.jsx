@@ -1,7 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NavBar from "./components/NavBar.jsx";
-import DishesContext from "./contexts/Dishes.jsx";
+import { Routes, Route } from "react-router-dom";
+import { DishesProvider } from "./providers/DishesProvider.jsx";
 import useAuth from "./hooks/useAuth.jsx";
+import useUserInfo from "./hooks/useUserInfo.jsx";
+import NavBar from "./components/NavBar.jsx";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
@@ -9,9 +10,7 @@ import AboutUs from "./pages/AboutUs";
 import Contact from "./pages/Contact";
 import Food from "./pages/Food";
 import Cart from "./pages/Cart";
-import dishes from "./assets/dishes.json";
 import "./App.css";
-import useUserInfo from "./hooks/useUserInfo.jsx";
 
 function App() {
   const { foodAppToken, loading: authLoading } = useAuth();
@@ -23,7 +22,7 @@ function App() {
     return <div>Loading...</div>;
   }
   return (
-    <DishesContext.Provider value={dishes}>
+    <DishesProvider>
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
@@ -38,7 +37,7 @@ function App() {
           </>
         )}
       </Routes>
-    </DishesContext.Provider>
+    </DishesProvider>
   );
 }
 
