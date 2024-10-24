@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import ProductCard from "../components/ProductCard";
-import useUserInfo from "../hooks/useUserInfo";
+import useAuth from "../hooks/useAuth";
 import useDishes from "../hooks/useDishes";
-import useFoodAppCart from "../hooks/useFoodAppCart";
+import { useFoodAppCart } from "../hooks/useFoodAppCart";
 
 const Food = () => {
   const [filterBy, setFilterBy] = useState(["food", "beverages"]);
-  const { userInfo } = useUserInfo();
+  const { userInfo } = useAuth();
 
   const { loading: dishesLoading, dishes } = useDishes();
 
@@ -15,7 +15,7 @@ const Food = () => {
     foodAppCart,
     updateFoodAppCart,
     removeProductFromCart,
-  } = useFoodAppCart(userInfo.id);
+  } = useFoodAppCart(userInfo._id);
 
   const handleFilterClick = (filterOption) => {
     switch (filterOption) {

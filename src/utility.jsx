@@ -43,9 +43,6 @@ export function emptyFields() {
   [...arguments].forEach((setState) => setState(""));
 }
 
-export const getIndexOfEmailInLocalStorage = (users, email) =>
-  users.map((user) => user.email).indexOf(email);
-
 export const getEnrichedCart = (dishes, userCart) => {
   if (!userCart) return [];
   const cartProductKeys = Object.keys(userCart);

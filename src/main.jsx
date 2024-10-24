@@ -1,16 +1,13 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
-import "./utility.css";
 import AuthProvider from "./providers/AuthProvider.jsx";
-import UserInfoProvider from "./providers/UserInfoProvider.jsx";
 import { BrowserRouter } from "react-router-dom";
+import "./utility.css";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <AuthProvider>
-      <UserInfoProvider>
-        <App />
-      </UserInfoProvider>
+      <App />
     </AuthProvider>
   </BrowserRouter>
 );

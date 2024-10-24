@@ -6,12 +6,11 @@ import {
   nameRegex,
   emailRegex,
   passwordRegex,
-  getIndexOfEmailInLocalStorage,
 } from "../utility";
 import useAuth from "../hooks/useAuth";
 
 const SignUp = () => {
-  const { logIn } = useAuth();
+  const { signUp, signUpError } = useAuth();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -61,36 +60,13 @@ const SignUp = () => {
       passwordRegex
     );
     if (isFnValid && isLnValid && isEmailValid && isPwValid) {
-      const userId = uuidv4();
-      const newUser = {
-        id: userId,
-        firstName,
-        lastName,
+      signUp({
+        name: `${firstName} ${lastName}`,
         email,
         password,
-      };
-
-      if (!localStorage.getItem("foodAppUsers")) {
-        localStorage.setItem("foodAppUsers", JSON.stringify([newUser]));
-        emptyFields(setFirstName, setLastName, setEmail, setPassword);
-
-        logIn(userId);
-      } else {
-        const foodAppUsers = JSON.parse(localStorage.getItem("foodAppUsers"));
-        if (getIndexOfEmailInLocalStorage(foodAppUsers, email) >= 0) {
-          setEmailAlreadyUsedError(true);
-        } else {
-          setEmailAlreadyUsedError(false);
-
-          localStorage.setItem(
-            "foodAppUsers",
-            JSON.stringify([...foodAppUsers, newUser])
-          );
-
-          emptyFields(setFirstName, setLastName, setEmail, setPassword);
-          logIn(userId);
-        }
-      }
+        cnf_password: password,
+      });
+      emptyFields(setFirstName, setLastName, setEmail, setPassword);
     }
   };
 
@@ -182,7 +158,7 @@ const SignUp = () => {
             </ul>
           )}
         </div>
-        {emailAlreadyUsedError && (
+        {signUpError && (
           <span className="error-msg">
             User with this email already exists. Please try a different email.
           </span>

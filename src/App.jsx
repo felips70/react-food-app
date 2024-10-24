@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { DishesProvider } from "./providers/DishesProvider.jsx";
 import useAuth from "./hooks/useAuth.jsx";
-import useUserInfo from "./hooks/useUserInfo.jsx";
 import NavBar from "./components/NavBar.jsx";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
@@ -13,18 +12,16 @@ import Cart from "./pages/Cart";
 import "./App.css";
 
 function App() {
-  const { foodAppToken, loading: authLoading } = useAuth();
-  // The reason useUserInfo was added here is so that the loading would happen
-  // explicitly rather than implicitly by the loading time of useAuth
-  const { loading: userInfoLoading } = useUserInfo();
+  const { foodAppToken, loading } = useAuth();
 
-  if (authLoading || userInfoLoading) {
+  if (loading) {
     return <div>Loading...</div>;
   }
   return (
     <DishesProvider>
       <NavBar />
       <Routes>
+        {/* TODO: Add a page not found route */}
         <Route path="/" element={<Home />}></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
         <Route path="/log-in" element={<LogIn />}></Route>

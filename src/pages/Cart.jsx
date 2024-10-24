@@ -1,14 +1,14 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import CartProductCard from "../components/CartProductCard";
-import useUserInfo from "../hooks/useUserInfo";
-import useFoodAppCart from "../hooks/useFoodAppCart";
+import { useFoodAppCart } from "../hooks/useFoodAppCart";
 import { getEnrichedCart, displayDissapearingMessage } from "../utility";
 import EmptyCart from "../components/EmptyCart";
 import useDishes from "../hooks/useDishes";
+import useAuth from "../hooks/useAuth";
 
 const Cart = () => {
   const [showOrderMadeMessage, setShowOrderMadeMessage] = useState(false);
-  const { userInfo } = useUserInfo();
+  const { userInfo } = useAuth();
 
   const { loading: dishesLoading, dishes } = useDishes();
 
@@ -17,7 +17,7 @@ const Cart = () => {
     foodAppCart,
     removeProductFromCart,
     removeUserCart,
-  } = useFoodAppCart(userInfo.id);
+  } = useFoodAppCart(userInfo._id);
 
   const enrichedUserCart = useMemo(() => {
     return cartLoading || dishesLoading

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useFoodAppCart = (userId) => {
+export const useFoodAppCart = (userId) => {
   const [foodAppCart, setFoodAppCart] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -10,7 +10,7 @@ const useFoodAppCart = (userId) => {
     );
 
     const initialFoodAppCart = foodAppCartByUser
-      ? foodAppCartByUser?.[userId]
+      ? foodAppCartByUser?.[userId] || null
       : null;
 
     setFoodAppCart(initialFoodAppCart);
@@ -80,5 +80,3 @@ const useFoodAppCart = (userId) => {
     removeUserCart,
   };
 };
-
-export default useFoodAppCart;

@@ -1,14 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import useAuth from "../hooks/useAuth";
-import useUserInfo from "../hooks/useUserInfo";
 import { Link } from "react-router-dom";
-import useFoodAppCart from "../hooks/useFoodAppCart";
-import { getTotalProductQuantity } from "../utility";
 
 const NavBar = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const { foodAppToken, logOut } = useAuth();
-  const { userInfo } = useUserInfo();
+  const { foodAppToken, userInfo, logOut } = useAuth();
 
   const handleLogOut = () => {
     setShowMenu(false);
@@ -42,7 +38,7 @@ const NavBar = () => {
               onClick={() => setShowMenu((prev) => !prev)}
               className="profile-btn btn-effects"
             >
-              {userInfo?.firstName[0].toUpperCase() || "?"}
+              {userInfo?.name[0].toUpperCase() || "?"}
             </button>
             {showMenu && (
               <ul className="menu-container">

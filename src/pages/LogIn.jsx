@@ -5,18 +5,15 @@ import {
   validateFieldLength,
   emailRegex,
   emptyFields,
-  getIndexOfEmailInLocalStorage,
 } from "../utility";
 
 const LogIn = () => {
-  const { logIn } = useAuth();
+  const { logIn, logInError } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailEmptyError, setEmailEmptyError] = useState(false);
   const [emailContentError, setEmailContentError] = useState(false);
   const [pwEmptyError, setPwEmptyError] = useState(false);
-  const [userOrPasswordIncorrectError, setUserOrPasswordIncorrectError] =
-    useState(false);
 
   const handleChange = (e, setState) => setState(e.target.value);
 
@@ -30,25 +27,8 @@ const LogIn = () => {
     );
     const isPwValid = validateFieldLength(password, setPwEmptyError);
     if (isEmailValid && isPwValid) {
-      if (!localStorage.getItem("foodAppUsers")) {
-        setUserOrPasswordIncorrectError(true);
-      } else {
-        setUserOrPasswordIncorrectError(false);
-        const foodAppUsers = JSON.parse(localStorage.getItem("foodAppUsers"));
-        const indexOfEmail = getIndexOfEmailInLocalStorage(foodAppUsers, email);
-        if (indexOfEmail < 0) {
-          setUserOrPasswordIncorrectError(true);
-        } else {
-          setUserOrPasswordIncorrectError(false);
-          if (foodAppUsers[indexOfEmail].password !== password) {
-            setUserOrPasswordIncorrectError(true);
-          } else {
-            setUserOrPasswordIncorrectError(false);
-            emptyFields(setEmail, setPassword);
-            logIn(foodAppUsers[indexOfEmail].id);
-          }
-        }
-      }
+      logIn({ email, password, name: "", cnf_password: "" });
+      emptyFields(setEmail, setPassword);
     }
   };
   return (
@@ -84,8 +64,8 @@ const LogIn = () => {
             <span className="empty-field">*Please fill this field</span>
           )}
         </div>
-        {userOrPasswordIncorrectError && (
-          <p className="error-msg text-center">
+        {logInError && (
+          <p className="error-msg text-center my-1">
             The email or password you entered is incorrect
           </p>
         )}
