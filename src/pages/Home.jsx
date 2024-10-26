@@ -8,7 +8,7 @@ const Home = () => {
     <div className="d-flex flex-column align-items-center m-5 gap-3">
       <img
         className="food-on-table-img"
-        src="/src/assets/food-on-table.png"
+        src="https://zqafc8es8gka17ux.public.blob.vercel-storage.com/food-on-table-CF9onw0qO3cJxF1Yw7S1SS1UrkTlZN.png"
         alt="food-on-table"
       />
       <h2 className="food-app-question">What is Food App ?</h2>

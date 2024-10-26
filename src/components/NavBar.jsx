@@ -14,7 +14,11 @@ const NavBar = () => {
   return (
     <ul className="nav-bar">
       <li>
-        <img src="src/assets/food.png" alt="logo" width={30} />
+        <img
+          src="https://zqafc8es8gka17ux.public.blob.vercel-storage.com/food-Y4w0IBJsD1xM6YTrB5wslbenWnQqky.png"
+          alt="logo"
+          width={30}
+        />
       </li>
       <li>
         <Link to="/">Home</Link>
