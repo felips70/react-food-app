@@ -4,11 +4,9 @@ import { useFoodAppCart } from "../hooks/useFoodAppCart";
 import { getEnrichedCart, displayDissapearingMessage } from "../utility";
 import EmptyCart from "../components/EmptyCart";
 import useDishes from "../hooks/useDishes";
-import useAuth from "../hooks/useAuth";
 
 const Cart = () => {
   const [showOrderMadeMessage, setShowOrderMadeMessage] = useState(false);
-  const { userInfo } = useAuth();
 
   const { loading: dishesLoading, dishes } = useDishes();
 
@@ -17,7 +15,7 @@ const Cart = () => {
     foodAppCart,
     removeProductFromCart,
     removeUserCart,
-  } = useFoodAppCart(userInfo._id);
+  } = useFoodAppCart();
 
   const enrichedUserCart = useMemo(() => {
     return cartLoading || dishesLoading

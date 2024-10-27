@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import useAuth from "../hooks/useAuth";
+import { useFoodAppCart } from "../hooks/useFoodAppCart";
 import { Link } from "react-router-dom";
+import { getTotalProductQuantity } from "../utility";
 
 const NavBar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const { foodAppToken, userInfo, logOut } = useAuth();
 
+  const { foodAppCart } = useFoodAppCart();
+
   const handleLogOut = () => {
     setShowMenu(false);
     logOut();
   };
+
+  const totalProductQuantity = useMemo(() => {
+    return getTotalProductQuantity(foodAppCart);
+  }, [foodAppCart]);
 
   return (
     <ul className="nav-bar">
@@ -35,7 +43,12 @@ const NavBar = () => {
             <Link to="/food">Food</Link>
           </li>
           <li>
-            <Link to="/cart">Cart</Link>
+            <Link to="/cart" className="p-relative">
+              {totalProductQuantity > 0 && (
+                <span className="cart-counter">{totalProductQuantity}</span>
+              )}
+              Cart
+            </Link>
           </li>
           <li className="profile">
             <button
