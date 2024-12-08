@@ -15,6 +15,7 @@ const Cart = () => {
     foodAppCart,
     removeProductFromCart,
     removeUserCart,
+    createOrder,
   } = useFoodAppCart();
 
   const enrichedUserCart = useMemo(() => {
@@ -24,7 +25,7 @@ const Cart = () => {
   }, [dishes, foodAppCart]);
 
   const handleMakeOrder = () => {
-    removeUserCart();
+    createOrder();
     displayDissapearingMessage(setShowOrderMadeMessage);
   };
 

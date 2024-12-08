@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import CartContext from "../contexts/CartContext";
 import useAuth from "../hooks/useAuth";
+import axios from "axios";
+import { SERVER_ENDPOINT } from "../constants";
 
 const CartProvider = ({ children }) => {
   const [foodAppCart, setFoodAppCart] = useState(null);
@@ -79,6 +81,41 @@ const CartProvider = ({ children }) => {
     setFoodAppCart(null);
   };
 
+  const createOrder = async () => {
+    try {
+      const foodAppCartByUser = JSON.parse(
+        localStorage.getItem("foodAppCartByUser")
+      );
+      const { [userInfo._id]: userCart, ...newFoodAppCartByUser } =
+        foodAppCartByUser;
+
+      const orderDetails = Object.entries(userCart).map(
+        ([dishId, quantity]) => ({
+          dishId,
+          quantity,
+        })
+      );
+
+      const orderObject = {
+        userId: userInfo._id,
+        orderDetails,
+      };
+
+      await axios.post(
+        `${SERVER_ENDPOINT}/api/orders/create-order`,
+        orderObject
+      );
+
+      localStorage.setItem(
+        "foodAppCartByUser",
+        JSON.stringify(newFoodAppCartByUser)
+      );
+      setFoodAppCart(null);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -87,6 +124,7 @@ const CartProvider = ({ children }) => {
         updateFoodAppCart,
         removeProductFromCart,
         removeUserCart,
+        createOrder,
       }}
     >
       {children}
