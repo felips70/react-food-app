@@ -27,7 +27,7 @@ const LogIn = () => {
     );
     const isPwValid = validateFieldLength(password, setPwEmptyError);
     if (isEmailValid && isPwValid) {
-      logIn({ email, password, name: "", cnf_password: "" });
+      logIn({ email, password });
       emptyFields(setEmail, setPassword);
     }
   };

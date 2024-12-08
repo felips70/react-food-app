@@ -60,10 +60,10 @@ const SignUp = () => {
     );
     if (isFnValid && isLnValid && isEmailValid && isPwValid) {
       signUp({
-        name: `${firstName} ${lastName}`,
+        firstName,
+        lastName,
         email,
         password,
-        cnf_password: password,
       });
       emptyFields(setFirstName, setLastName, setEmail, setPassword);
     }

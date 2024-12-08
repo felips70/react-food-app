@@ -55,7 +55,7 @@ const NavBar = () => {
               onClick={() => setShowMenu((prev) => !prev)}
               className="profile-btn btn-effects"
             >
-              {userInfo?.name[0].toUpperCase() || "?"}
+              {userInfo?.firstName[0].toUpperCase() || "?"}
             </button>
             {showMenu && (
               <ul className="menu-container">
