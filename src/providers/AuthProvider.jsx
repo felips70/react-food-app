@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AuthContext from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { SERVER_ENDPOINT } from "../constants";
 
 const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
@@ -39,12 +40,12 @@ const AuthProvider = ({ children }) => {
   };
 
   const logIn = authentication(
-    "https://food-delivery-app-five-gamma.vercel.app/api/user/login",
+    `${SERVER_ENDPOINT}/api/user/login`,
     setLogInError
   );
 
   const signUp = authentication(
-    "https://food-delivery-app-five-gamma.vercel.app/api/user/register",
+    `${SERVER_ENDPOINT}/api/user/signup`,
     setSignUpError
   );
 

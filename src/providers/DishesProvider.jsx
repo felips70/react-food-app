@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import DishesContext from "../contexts/DishesContext";
 import useAuth from "../hooks/useAuth";
+import { SERVER_ENDPOINT } from "../constants";
 
 export const DishesProvider = ({ children }) => {
   const { foodAppToken } = useAuth();
@@ -13,9 +14,7 @@ export const DishesProvider = ({ children }) => {
     if (foodAppToken) {
       try {
         setLoading(true);
-        const response = await axios.get(
-          "https://food-delivery-app-five-gamma.vercel.app/api/dishes"
-        );
+        const response = await axios.get(`${SERVER_ENDPOINT}/api/dishes`);
         setDishes(response.data);
         setLoading(false);
       } catch (e) {
